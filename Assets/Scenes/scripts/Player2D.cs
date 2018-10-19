@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
-public class Player3D: MonoBehaviour
-{
+enum playerState { idle, falling, Grounded, dead };
+public class Player2D : MonoBehaviour {
     public float walkingSpeed, fallForce;
 
     playerState state;
@@ -51,8 +50,7 @@ public class Player3D: MonoBehaviour
     {
         Vector3 walk = Vector3.zero;
         float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        walk = new Vector3(h, 0, v);
+        walk = new Vector3(h, 0, 0);
         this.transform.position += walk * walkingSpeed * Time.deltaTime;
     }
 
@@ -63,13 +61,12 @@ public class Player3D: MonoBehaviour
         this.transform.position += fall * fallForce * Time.deltaTime;
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Ground")
         {
             state = playerState.Grounded;
         }
-        
+
     }
 }
-
